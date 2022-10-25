@@ -8,7 +8,8 @@ int main(void)
     bool prime[len]={};
     //get n
     int n;
-    scanf("%d",&n);
+    int column;
+    scanf("%d %d",&n,&column);
     assert(n>0&&n<len);
     for(int i=2;i<len;i++)
     {
@@ -28,13 +29,21 @@ int main(void)
             j++;//下一位
         }
     }
+    int count=-1;
     for(int i=0;i<n;i++)
     {
         if(prime[i])
         {
-            printf("%d\n",i);
+            printf("%d ",i);
+            count++;
+        }
+        if(count%column==column-1)
+        {
+            printf("\n");
+            count=0;
         }
     }
+    
 
     return 0;
 }
