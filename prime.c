@@ -1,39 +1,41 @@
 #include<stdio.h>
 #include<stdbool.h>
 #include<assert.h>
-#define SIZE 101
+#define len 101
+
 int main(void)
 {
-    //print out all prime before n
-    printf("hi eeee\n");
-    int n=0;
+    bool prime[len]={};
+    //get n
+    int n;
     scanf("%d",&n);
-    assert(n>=2&&n<SIZE);
-    bool prime[SIZE];
-    //initialize it
-    for(int i=2;i<SIZE;i++) 
+    assert(n>0&&n<len);
+    for(int i=2;i<len;i++)
     {
         prime[i]=true;
     }
-    int j=2;//從2開始找是否為質數
-    while(j*j<=n)//不大於n的和數必有一個不大於根號n的質因數，所以到根好n即可
+    int j=2;// NO.j prime
+    while(j*j<n)
     {
-        while(!prime[j])//!prime[j]為true代表prime[j]是flase,不是質數，用第一個質數幹掉後面的數
+        if(!prime[j])
+            j++;//再下一位
+        else//是質數，幹掉他的倍數
         {
-            j++;
+            for(int i=2*j;i<n;i+=j)//如果j=0程式會卡在這
+            {
+                prime[i]=false;
+            }
+            j++;//下一位
         }
-        //找到一個質數，j
-        for(int i=2*j;i<=n;i+=j)//質數的倍數(i)都是合數，把他們幹掉
-        {
-            prime[i]=false;
-        }
-        j++;
     }
-    for(int i=2;i<n;i++)
+    for(int i=0;i<n;i++)
     {
-        if(prime[i])//true 代表是質數
-        printf("%d\n",i);
+        if(prime[i])
+        {
+            printf("%d\n",i);
+        }
     }
 
     return 0;
 }
+
